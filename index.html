@@ -1,889 +1,1599 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-
-    <title>Portfolio</title>
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammed Yaseen - Mobile Developer Extraordinaire</title>
+    
     <!-- Favicons -->
     <link href="assets/img/yaseen_imgn2.png" rel="icon" />
     <link href="assets/img/yaseen_imgn2.png" rel="apple-touch-icon" />
-
+    
     <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
-    <link
-      href="assets/vendor/bootstrap/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-    <link
-      href="assets/vendor/glightbox/css/glightbox.min.css"
-      rel="stylesheet"
-    />
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+        :root {
+            --bg-dark: #0a0e27;
+            --bg-darker: #050816;
+            --accent-primary: #00d9ff;
+            --accent-secondary: #ff006e;
+            --accent-tertiary: #8338ec;
+            --text-light: #ffffff;
+            --text-dim: #a0aec0;
+            --card-bg: rgba(15, 23, 42, 0.8);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
 
-    <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet" />
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-    <!-- =======================================================
-  * Template Name: iPortfolio
-  * Updated: Nov 17 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-  </head>
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--bg-darker);
+        }
 
-  <body>
-    <!-- ======= Mobile nav toggle button ======= -->
-    <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+        .animated-bg canvas {
+            display: block;
+        }
 
-    <!-- ======= Header ======= -->
-    <header id="header">
-      <div class="d-flex flex-column">
-        <div class="profile">
-          <img
-            src="assets/img/yaseen_img.jpeg"
-            alt=""
-            class="portfolio-item"
-          />
-          <h1 class="text-light"><a href="index.html">Muhammed Yaseen</a></h1>
-          <div class="social-links mt-3 text-center">
-            <a href="https://x.com/yaseenmuhammedp/" class="twitter"><i class="bx bxl-twitter"></i></a>
-            <a href="https://github.com/yaseenpv01" class="instagram"><i class="bx bxl-github"></i></a>
-          
-            <a
-              href="https://www.linkedin.com/in/muhammed-yaseen-p-v-529442149/"
-              class="linkedin"
-              ><i class="bx bxl-linkedin"></i
-            ></a>
-          </div>
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .typing-text {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
+            color: var(--text-light);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--accent-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-primary);
+            color: var(--bg-dark);
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: var(--accent-primary);
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            animation: fadeInLeft 1s ease;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .about-content {
+            animation: fadeInRight 1s ease;
+        }
+
+        .about-content p {
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 8rem 5%;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .skill-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .skill-level {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Experience Section */
+        .experience {
+            padding: 8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-primary), var(--accent-tertiary));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 2rem;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            box-shadow: 0 0 20px var(--accent-primary);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            border-color: var(--accent-primary);
+        }
+
+        .timeline-date {
+            color: var(--accent-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--accent-secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+
+        .timeline-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            padding: 0.3rem 1rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--accent-primary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 8rem 5%;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3);
+        }
+
+        .project-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-primary);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .project-body {
+            padding: 2rem;
+        }
+
+        .project-description {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            color: var(--accent-primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .project-link {
+            padding: 0.6rem 1.5rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--accent-primary);
+            border-radius: 25px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: var(--accent-primary);
+            color: var(--bg-dark);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            border-color: var(--accent-primary);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--accent-primary);
+        }
+
+        .contact-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details p {
+            color: var(--text-dim);
+        }
+
+        .contact-details a {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: var(--accent-primary);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-dim);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 1rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
+            border: none;
+            border-radius: 50px;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            border-radius: 50%;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-link:hover {
+            background: var(--accent-primary);
+            color: var(--bg-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .copyright {
+            color: var(--text-dim);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav-toggle {
+            position: fixed;
+            right: 15px;
+            top: 15px;
+            z-index: 9998;
+            border: 0;
+            font-size: 24px;
+            transition: all 0.4s;
+            outline: none !important;
+            background-color: #149ddd;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 0;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .mobile-nav-active {
+            overflow: hidden;
+        }
+
+        .mobile-nav-active #header {
+            left: 0;
+        }
+
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 80px;
+                right: 0;
+                background: rgba(10, 14, 39, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                border-radius: 15px;
+                margin: 0 1rem;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 1rem 3%;
+            }
+
+            .hero, .about, .experience, .projects, .contact {
+                padding: 4rem 3%;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+        }
+
+        /* Scroll Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+            z-index: 10000;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">MY</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="Muhammed_Yaseen_PV_CV.pdf" download="Muhammed_Yaseen_PV_CV.pdf">Resume</a></li>
+        </ul>
+        <div class="mobile-menu">
+            <i class="fas fa-bars"></i>
         </div>
+    </nav>
 
-        <nav id="navbar" class="nav-menu navbar">
-          <ul>
-            <li>
-              <a href="#hero" class="nav-link scrollto active"
-                ><i class="bx bx-home"></i> <span>Home</span></a
-              >
-            </li>
-            <li>
-              <a href="#about" class="nav-link scrollto"
-                ><i class="bx bx-user"></i> <span>About</span></a
-              >
-            </li>
-            <!-- <li>
-              <a href="#resume" class="nav-link scrollto"
-                ><i class="bx bx-file-blank"></i> <span>Resume</span></a
-              >
-            </li> -->
-            <li>
-              <a href="#skills" class="nav-link scrollto"
-                ><i class="bx bx-code"></i>
-                <span>Languages & Skills</span></a
-              >
-            </li>
-            <li>
-              <a href="#education" class="nav-link scrollto"
-                ><i class="bx bx-book-content"></i> <span>Education</span></a
-              >
-            </li>
-            <li>
-              <a href="#projects" class="nav-link scrollto"
-                ><i class="bx bx-server"></i> <span>Projects</span></a
-              >
-            </li>
-
-            <li>
-              <a
-                href="Muhammed_Yaseen_Resume.pdf"
-                download="Yaseen's Resume (4).pdf"
-                class="nav-link scrollto"
-              >
-                <i class="bx bx-download"></i> <span>Resume</span>
-              </a>
-            </li>
-
-            <!-- <li>
-              <a href="#portfolio" class="nav-link scrollto"
-                ><i class="bx bx-book-content"></i> <span>Portfolio</span></a
-              >
-            </li> -->
-            <!-- <li>
-              <a href="#education" class="nav-link scrollto" 
-                ><i class="bx bx-book-content"></i> <span>Portfolio</span></a
-              >
-            </li> -->
-            <!-- <li>
-              <a href="#services" class="nav-link scrollto"
-                ><i class="bx bx-server"></i> <span>Services</span></a
-              >
-            </li> -->
-            <li>
-              <a href="#contact" class="nav-link scrollto"
-                ><i class="bx bx-envelope"></i> <span>Contact</span></a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- .nav-menu -->
-      </div>
-    </header>
-    <!-- End Header -->
-
-    <!-- ======= Hero Section ======= -->
-    <section
-      id="hero"
-      class="d-flex flex-column justify-content-center align-items-center"
-    >
-      <div class="hero-container" data-aos="fade-in">
-        <h1>Muhammed Yaseen</h1>
-        <p>
-          I'm a
-          <span
-            class="typed"
-            data-typed-items="Passionate Developer, Knowledge Seeker, Problem Solver"
-          ></span>
-        </p>
-      </div>
-    </section>
-    <!-- End Hero -->
-
-    <main id="main">
-      <!-- ======= About Section ======= -->
-      <section id="about" class="about">
-        <div class="container">
-          <div class="section-title">
-    <h2>About</h2>
-    <p style="text-align: justify">
-        Results-driven and innovative Mobile Application Developer with over 4 years of hands-on experience in creating scalable, secure, and high-performance mobile applications. Skilled in both Android (Java, Kotlin) and Flutter development, I excel in building user-focused, cross-platform solutions with an emphasis on performance and usability. 
-
-        In my current role, I contribute to impactful projects involving crypto solutions, encrypted messaging, and community tools, with a strong focus on user experience and security. My expertise also extends to backend development, where I leverage Node.js, Firebase, and RESTful APIs to enable seamless app-to-server communication.
-
-        Passionate about mobile innovation and blockchain integration, I am committed to delivering top-quality tech solutions. With a deep understanding of secure app integration, smart contract management, and secure storage solutions, I ensure data protection and robust performance in every project. 
-    </p>
-</div>
-
-
-          <div class="row">
-            <div class="col-lg-4" data-aos="fade-right">
-              <img
-                src="assets/img/yaseen_imgnew.png"
-                class="img-fluid"
-                alt=""
-              />
-            </div>
-            <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-              <h3>Personal Details</h3>
-              <!-- <p class="fst-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p> -->
-              <div class="row">
-                <div class="col-lg-6">
-                  <ul>
-                    <li>
-                      <i class="bi bi-chevron-right"></i>
-                      <strong>Birthday:</strong> <span>28 June 1997</span>
-                    </li>
-                    <li>
-                      <i class="bi bi-chevron-right"></i>
-                      <strong>linkedin:</strong>
-                      <span
-                        ><a
-                          href="https://www.linkedin.com/in/muhammed-yaseen-p-v-529442149/"
-                          target="_blank"
-                          >LinkedIn Profile</a
-                        ></span
-                      >
-                    </li>
-                    <li>
-                      <i class="bi bi-chevron-right"></i>
-                      <strong>Phone:</strong> <span>+971 50 582 9303</span>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-lg-6">
-                  <ul>
-                    <!-- <li>
-                      <i class="bi bi-chevron-right"></i> <strong>Age:</strong>
-                      <span>24</span>
-                    </li> -->
-                    <li>
-                      <i class="bi bi-chevron-right"></i>
-                      <strong>Degree:</strong> <span>B.E Computer Science and Engineering</span>
-                    </li>
-                    <li>
-                      <i class="bi bi-chevron-right"></i>
-                      <strong>Email:</strong>
-                      <span>yaseenpv01@gmail.com</span>
-                    </li>
-                    <li>
-                      <i class="bi bi-chevron-right"></i>
-                      <strong>Place:</strong>
-                      <span>Dubai , UAE</span>
-                    </li>
-                    <!-- <li>
-                      <i class="bi bi-chevron-right"></i>
-                      <strong>Freelance:</strong> <span>Available</span>
-                    </li> -->
-                  </ul>
-                </div>
-              </div>
-              <h3>Achievements</h3>
-<div class="row">
-  <div class="col-lg-6">
-    <ul>
-      <li>
-        <i class="bi bi-chevron-right"></i>
-        <strong>Flutter Development</strong>
-      </li>
-      <li>
-        <i class="bi bi-chevron-right"></i>
-        <strong>Android App Development</strong>
-      </li>
-      <li>
-        <i class="bi bi-chevron-right"></i>
-        <strong>Full Stack Web Development</strong>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<p style="text-align: justify;">
-    With a strong commitment to technical excellence, I have continually refined my skills across mobile and web development. My work has focused on delivering reliable, efficient, and impactful solutions to meet user needs and industry standards. I thrive in environments that challenge my problem-solving abilities and allow me to contribute meaningful, innovative ideas.
-</p>
-
-
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- End About Section -->
-
-      <!-- ======= Facts Section ======= -->
-      <!-- <section id="facts" class="facts">
-        <div class="container">
-          <div class="section-title">
-            <h2>Facts</h2>
-            <p>
-              Magnam dolores commodi suscipit. Necessitatibus eius consequatur
-              ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam
-              quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.
-              Quia fugiat sit in iste officiis commodi quidem hic quas.
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Muhammed Yaseen</h1>
+            <p class="hero-subtitle">
+                <span class="typing-text"></span>
             </p>
-          </div>
-
-          <div class="row no-gutters">
-            <div
-              class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch"
-              data-aos="fade-up"
-            >
-              <div class="count-box">
-                <i class="bi bi-emoji-smile"></i>
-                <span
-                  data-purecounter-start="0"
-                  data-purecounter-end="232"
-                  data-purecounter-duration="1"
-                  class="purecounter"
-                ></span>
-                <p><strong>Happy Clients</strong> consequuntur quae</p>
-              </div>
+            <p style="color: var(--text-dim); max-width: 700px; margin: 0 auto; font-size: 1.1rem;">
+                Software Engineer with 5+ years specializing in Flutter & Android. Building enterprise-grade mobile solutions across UAE & GCC with focus on client engagement and technical excellence.
+            </p>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="Muhammed_Yaseen_PV_CV.pdf" download="Muhammed_Yaseen_Resume.pdf" class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
             </div>
-
-            <div
-              class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div class="count-box">
-                <i class="bi bi-journal-richtext"></i>
-                <span
-                  data-purecounter-start="0"
-                  data-purecounter-end="521"
-                  data-purecounter-duration="1"
-                  class="purecounter"
-                ></span>
-                <p><strong>Projects</strong> adipisci atque cum quia aut</p>
-              </div>
-            </div>
-
-            <div
-              class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <div class="count-box">
-                <i class="bi bi-headset"></i>
-                <span
-                  data-purecounter-start="0"
-                  data-purecounter-end="1453"
-                  data-purecounter-duration="1"
-                  class="purecounter"
-                ></span>
-                <p><strong>Hours Of Support</strong> aut commodi quaerat</p>
-              </div>
-            </div>
-
-            <div
-              class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <div class="count-box">
-                <i class="bi bi-people"></i>
-                <span
-                  data-purecounter-start="0"
-                  data-purecounter-end="32"
-                  data-purecounter-duration="1"
-                  class="purecounter"
-                ></span>
-                <p><strong>Hard Workers</strong> rerum asperiores dolor</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </section> -->
-      <!-- End Facts Section -->
-
-      <!-- ======= Skills Section ======= -->
-      <section id="skills" class="skills section-bg">
-        <div class="container">
-          <div class="section-title">
-            <h2>Languages &amp; Skills</h2>
-            <!-- <p>
-              Magnam dolores commodi suscipit. Necessitatibus eius consequatur
-              ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam
-              quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea.
-              Quia fugiat sit in iste officiis commodi quidem hic quas.
-            </p> -->
-          </div>
-
-          <div class="row skills-content">
-            <div class="col-lg-6" data-aos="fade-up">
-              <div class="progress">
-                <span class="skill">Android App Devlopment <i class="val">100%</i></span>
-                <div class="progress-bar-wrap">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    aria-valuenow="100"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-
-              <div class="progress">
-                <span class="skill">Flutter Development <i class="val">90%</i></span>
-                <div class="progress-bar-wrap">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    aria-valuenow="90"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-
-              <div class="progress">
-                <span class="skill">Java <i class="val">70%</i></span>
-                <div class="progress-bar-wrap">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    aria-valuenow="70"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-              <div class="progress">
-                <span class="skill">Kotlin <i class="val">95%</i></span>
-                <div class="progress-bar-wrap">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    aria-valuenow="95"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-              <div class="progress">
-                <span class="skill">Dart <i class="val">85%</i></span>
-                <div class="progress-bar-wrap">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    aria-valuenow="85"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="progress">
-                <span class="skill">iOS <i class="val">90%</i></span>
-                <div class="progress-bar-wrap">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    aria-valuenow="60"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-
-              <div class="progress">
-                <span class="skill">Nodejs <i class="val">80%</i></span>
-                <div class="progress-bar-wrap">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    aria-valuenow="80"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-
-              <div class="progress">
-                <span class="skill">Express<i class="val">70%</i></span>
-                <div class="progress-bar-wrap">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    aria-valuenow="70"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-
-              <div class="progress">
-                <span class="skill">MongoDb <i class="val">85%</i></span>
-                <div class="progress-bar-wrap">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    aria-valuenow="85"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-
-              <div class="progress">
-                <span class="skill">Web3 <i class="val">70%</i></span>
-                <div class="progress-bar-wrap">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    aria-valuenow="70"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
         </div>
-      </section>
-      <!-- End Skills Section -->
+    </section>
 
-        <section id="experience" class="resume">
-        <div class="container">
-          <div class="section-title">
-            <h2>EXPERIENCE</h2>
-            
-          </div>
-
-          <div class="row">
-            <div class="col-lg-6" data-aos="fade-up">
-              
-
-              <!-- <h3 class="resume-title">Education</h3> -->
-              <div class="resume-item">
-                <h4>Software Engineer Android & Flutter</h4>
-                <h5>September 2022 - Present , United Arab Emirates</h5>
-                <h4>
-                  <em
-                    >Inaxus</em
-                  >
-                </h4>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section-header">
+            <h2 class="section-title">About Me</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="assets/img/yaseen_imgnew.png" alt="Muhammed Yaseen">
+            </div>
+            <div class="about-content">
                 <p>
-                  Engineered a robust hybrid software solution for Inaxus, leveraging Flutter for seamless cross-platform functionality, Android Java, and iOS Swift.
+                    Software Engineer with 5+ years of experience delivering enterprise-grade mobile applications across UAE & GCC. Specialized in Flutter and Android (Java/Kotlin) with strong exposure to client-facing responsibilities, including requirement discovery, solution design, product demonstrations, and UAT support.
                 </p>
-                <ul>
-                  <li>Significantly enhanced project management capabilities by developing a comprehensive platform.</li>
-                  <li>Achieved a remarkable 30% increase in document processing efficiency through optimized workflows and innovative features.</li>
-                  <li>Collaborated closely with stakeholders to understand requirements and ensure alignment with project goals.</li>
-                  <li>Implemented advanced functionalities to streamline communication and facilitate real-time collaboration among project teams.</li>
-                  <li>Conducted rigorous testing and debugging to deliver a polished and reliable software product.</li>
-                </ul>
-                <p>Skills: REST APIs · Software Requirements · Firebase · Algorithms · Android · Coroutines · Android Development · Kotlin · Functional Programming · Socket Programming · Android Framework · JSON · SDKs · User Requirements · Debugging · Dagger (Software)</p>
-      
-              </div>
-
-              <div class="resume-item">
-                <h4>Software Engineer Android & Flutter</h4>
-                <h5>February 2022 - August 2022, Dubai, United Arab Emirates</h5>
-                <h4>
-                  <em
-                    >Future Trends LLC</em
-                  >
-                </h4>
-                <ul>
-                  <li>Designed and developed employee management application for Federal Geographic Information Center (FGIC) UAE</li>
-                  <li>Collaborated with a team of web3 specialists to develop a secure crypto lottery mobile application, integrating blockchain technology and
-                    smart contracts</li>
-                </ul>    
-              </div>
-
-              <div class="resume-item">
-                <h4>Software Engineer</h4>
-                <h5>December 2020 - January 2022, Kerala</h5>
-                <h4><em>Irings Technologies</em></h4>
-                <ul>
-                  <li>Created and maintained mobile applications catering to the unique needs of Kudumbasree, a local women's organization, and an HVAC
-                    company in Qatar.</li>
-                  <li>Worked closely with clients, including Kudumbasree and the HVAC company, to understand their requirements, gather feedback, and ensure
-                    the successful delivery of user-friendly software solutions</li>
-                  <li>Actively involved in coding, testing, and enhancing mobile apps, utilizing relevant technologies and programming languages</li>
-                  <li>Collaborated with cross-functional teams, including designers and QA testers, to ensure the apps met high-quality standards and adhered to
-                    user experience best practices.</li>
-                </ul>
-              </div>
-              <div class="resume-item">
-                <h4>Android Developer</h4>
-                <h5>August 2020 - December 2020, Kerala</h5>
-                <h4><em>Zoople Technologies</em></h4>
-                <p>Skills: REST APIs · Software Requirements · Firebase · Algorithms · Android · Coroutines · Android Development · Kotlin · Functional Programming · Socket Programming · Android Framework · JSON · SDKs</p>
-
-              </div>
-              
-            </div>
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-              <!-- <h3 class="resume-title">Education</h3> -->
-              
-              
-              <!-- <div class="resume-item">
-                <h4>Senior graphic design specialist</h4>
-                <h5>2019 - Present</h5>
-                <p><em>Experion, New York, NY </em></p>
-                <ul>
-                  <li>
-                    Lead in the design, development, and implementation of the
-                    graphic, layout, and production communication materials
-                  </li>
-                  <li>
-                    Delegate tasks to the 7 members of the design team and
-                    provide counsel on all aspects of the project.
-                  </li>
-                  <li>
-                    Supervise the assessment of all graphic materials in order
-                    to ensure quality and accuracy of the design
-                  </li>
-                  <li>
-                    Oversee the efficient use of production project budgets
-                    ranging from $2,000 - $25,000
-                  </li>
-                </ul>
-              </div> -->
-              <!-- <div class="resume-item">
-                <h4>Graphic design specialist</h4>
-                <h5>2017 - 2018</h5>
-                <p><em>Stepping Stone Advertising, New York, NY</em></p>
-                <ul>
-                  <li>
-                    Developed numerous marketing programs (logos,
-                    brochures,infographics, presentations, and advertisements).
-                  </li>
-                  <li>
-                    Managed up to 5 projects or tasks at a given time while
-                    under pressure
-                  </li>
-                  <li>
-                    Recommended and consulted with clients on the most
-                    appropriate graphic design
-                  </li>
-                  <li>
-                    Created 4+ design presentations and proposals a month for
-                    clients and account managers
-                  </li>
-                </ul>
-              </div> -->
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ======= Resume Section ======= -->
-      <section id="education" class="resume">
-  <div class="container">
-    <div class="section-title">
-      <h2>EDUCATION</h2>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-6" data-aos="fade-up">
-        <div class="resume-item">
-          <h4>Mangalore Institute of Technology and Engineering</h4>  <h5>B.E Computer Science and Engineering, 2015 - 2020</h5>
-        </div>
-      </div>
-      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-        </div>
-    </div>
-  </div>
-</section>
-
-
-      <section id="projects" class="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>PORTFOLIO</h2>
-            </div>
-    
-            <div class="row">
-                <div class="col-lg-6 col-md-6 icon-box" data-aos="fade-up">
-                    <div class="icon"><i class="bi bi-tools"></i></div>
-                    <h4 class="title"><a href="">Inaxus - A Hybrid Software for Construction, Project Management and Document Management</a></h4>
-                    <p class="description" style="text-align: justify">
-                        Engineered a robust hybrid software solution for Inaxus, a comprehensive platform for construction, project management, and document management.
-                        <strong>Technologies used: Flutter, Android Java, iOS Swift.</strong>
-                        <br>
-                        <strong>Play Store Link:</strong> <a href="https://play.google.com/store/apps/details?id=com.inaxus&hl=en&gl=US&pli=1">https://play.google.com/store/apps/details?id=com.inaxus&hl=en&gl=US&pli=1</a>
-                        <br>
-                        <strong>App Store Link:</strong> <a href="https://apps.apple.com/ae/app/inaxus/id1561525350">https://apps.apple.com/ae/app/inaxus/id1561525350</a>
-                    </p>
-                </div>
-    
-                <div class="col-lg-6 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
-                    <div class="icon"><i class="bi bi-speedometer2"></i></div>
-                    <h4 class="title"><a href="">SP Productivity Tracker</a></h4>
-                    <p class="description" style="text-align: justify">
-                        Spearheaded the development of the SP Productivity Tracker, a comprehensive digital platform designed to track skills and assess productivity for all in-house and subcontracted labor workforce deployed in projects by Shapoorji Pallonji Mideast LLC.
-                        
-                        <strong>Play Store Link:</strong> <a href="https://play.google.com/store/apps/details?id=com.shapoorji.mobileskillportal">https://play.google.com/store/apps/details?id=com.shapoorji.mobileskillportal</a>
-                        <br>
-                        <strong>App Store Link:</strong> <a href="https://apps.apple.com/ae/app/sp-productivity/id1668138413">https://apps.apple.com/ae/app/sp-productivity/id1668138413</a>
-                    </p>
-                </div>
-    
-                <div class="col-lg-6 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
-                    <div class="icon"><i class="bi bi-cart"></i></div>
-                    <h4 class="title"><a href="">Cart and Cook</a></h4>
-                    <p class="description" style="text-align: justify">
-                        Led the development of Cart & Cook, an innovative online ordering service enabling users to seamlessly search for and order products from local stores.
-                        
-                        <strong>Play Store Link:</strong> <a href="https://play.google.com/store/apps/details?id=com.cart_and_cook&hl=en&gl=US">https://play.google.com/store/apps/details?id=com.cart_and_cook&hl=en&gl=US</a>
-                        <br>
-                        <strong>App Store Link:</strong> <a href="https://apps.apple.com/ae/app/cart-and-cook/id1575116227">https://apps.apple.com/ae/app/cart-and-cook/id1575116227</a>
-                    </p>
-                </div>
-    
-                <div class="col-lg-6 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
-                    <div class="icon"><i class="bi bi-currency-bitcoin"></i></div>
-                    <h4 class="title"><a href="">Bitconia - Crypto Lottery App</a></h4>
-                    <p class="description" style="text-align: justify">
-                        Conceptualized and developed Bitconia, a pioneering Crypto Lottery App in collaboration with blockchain developers.
-                        
-                    </p>
-                </div>
-    
-                <div class="col-lg-6 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
-                    <div class="icon"><i class="bi bi-calendar-check"></i></div>
-                    <h4 class="title"><a href="">FGIC Attendance</a></h4>
-                    <p class="description" style="text-align: justify">
-                        Developed the FGIC Attendance application to streamline attendance tracking and employee monitoring for the Federal Geographic Information Center.
-                        
-                        <strong>Play Store Link:</strong> <a href="https://play.google.com/store/apps/details?id=app.fgic.com">https://play.google.com/store/apps/details?id=app.fgic.com</a>
-                    </p>
-                </div>
-    
-                <div class="col-lg-6 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
-                    <div class="icon"><i class="bi bi-gear"></i></div>
-                    <h4 class="title"><a href="">Gulf Experts Android App</a></h4>
-                    <p class="description" style="text-align: justify">
-                        Spearheaded the development of the Gulf Experts Android App, designed for creating service and field inspection reports with precision and efficiency.
-                        
-                        <strong>Play Store Link:</strong> <a href="https://play.google.com/store/apps/details?id=com.jibin.gulfexperts&hl=en&gl=US">https://play.google.com/store/apps/details?id=com.jibin.gulfexperts&hl=en&gl=US</a>
-                    </p>
-                </div>
-    
-                <div class="col-lg-6 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="600">
-                    <div class="icon"><i class="bi bi-people"></i></div>
-                    <h4 class="title"><a href="">KudumbaShree Android App</a></h4>
-                    <p class="description" style="text-align: justify">
-                        Led the development of the KudumbaShree Android App, empowering Kudumbasree and Ayalkootam units to streamline their paperwork processes with ease.
-                        
-                    </p>
-                </div>
-    
-                <div class="col-lg-6 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="700">
-                    <div class="icon"><i class="bi bi-file-earmark-check"></i></div>
-                    <h4 class="title"><a href="">Oryx</a></h4>
-                    <p class="description" style="text-align: justify">
-                        Led the development of the Oryx Android App, tailored for creating inspection reports for a Qatar-based HVAC company, enhancing efficiency and accuracy in the inspection process.
-                        
-                        <strong>Play Store Link:</strong> <a href="https://play.google.com/store/apps/details?id=com.irins.oryx&hl=en_AU&gl=US">https://play.google.com/store/apps/details?id=com.irins.oryx&hl=en_AU&gl=US</a>
-                    </p>
+                <p>
+                    Proven track record in building offline-first SaaS platforms, workforce management systems, and blockchain-integrated applications. I excel in translating complex workflows into scalable mobile solutions while maintaining focus on user experience and operational efficiency.
+                </p>
+                <p>
+                    My expertise extends to backend development with Node.js, Firebase, and RESTful APIs. Passionate about mobile innovation, blockchain integration, and creating solutions that drive real business impact for enterprise clients.
+                </p>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">20+</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Technologies</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    
 
-      <!-- ======= Services Section ======= -->
-      
-      <!-- End Testimonials Section -->
-
-      <!-- ======= Contact Section ======= -->
-      <section id="contact" class="contact">
-        <div class="container">
-          <div class="section-title">
-            <h2>Contact</h2>
-            <p>If you'd like to get in touch, feel free to reach out using the details below or the contact form!</p>
-          </div>
-      
-          <div class="row" data-aos="fade-in">
-            <!-- Contact Info -->
-            <div class="col-lg-6 d-flex flex-column align-items-start">
-              <div class="info mb-4">
-                <div class="address mb-3">
-                  <i class="bi bi-geo-alt"></i>
-                  <h4>Location:</h4>
-                  <p>Dubai, UAE</p>
-                </div>
-                <div class="email mb-3">
-                  <i class="bi bi-envelope"></i>
-                  <h4>Email:</h4>
-                  <p><a href="mailto:yaseenpv01@gmail.com">yaseenpv01@gmail.com</a></p>
-                </div>
-                <div class="phone">
-                  <i class="bi bi-phone"></i>
-                  <h4>Call:</h4>
-                  <p>+971 50 582 9303</p>
-                </div>
-              </div>
-            </div>
-      
-            <!-- Contact Form -->
-            <div class="col-lg-6">
-              <div class="form">
-                <form action="https://formspree.io/f/xbllqbpq" method="POST" class="submit-form">
-                  <div class="form-group mb-3">
-                    <input type="text" name="name" class="form-control" placeholder="Full Name" required />
-                  </div>
-                  <div class="form-group mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="Email" required />
-                  </div>
-                  <div class="form-group mb-3">
-                    <input type="text" name="phone" class="form-control" placeholder="Phone No." required />
-                  </div>
-                  <div class="form-group mb-3">
-                    <textarea name="message" class="form-control" placeholder="Message" rows="5" required></textarea>
-                  </div>
-                  <div class="text-center">
-                    <button class="btn btn-primary" type="submit">Send Message</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-      
-          <!-- Uncomment below for Google Maps -->
-          <!-- 
-          <div class="mt-5">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125773.62416972195!2d76.57313122176646!3d9.898453128849255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07c40a315b6705%3A0x4a8f3d2b78b03d27!2sThodupuzha%2C%20Kerala!5e0!3m2!1sen!2sin!4v1700907243389!5m2!1sen!2sin" 
-              width="100%" 
-              height="300" 
-              style="border:0;" 
-              allowfullscreen="" 
-              loading="lazy" 
-              referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-          </div>
-          -->
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="section-header">
+            <h2 class="section-title">Skills & Expertise</h2>
         </div>
-      </section>
-      <!-- End Contact Section -->
-    </main>
-    <!-- End #main -->
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i class="fab fa-android skill-icon"></i>
+                <div class="skill-name">Android</div>
+                <div class="skill-level">Expert</div>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-mobile-alt skill-icon"></i>
+                <div class="skill-name">Flutter</div>
+                <div class="skill-level">Advanced</div>
+            </div>
+            <div class="skill-card">
+                <i class="fab fa-apple skill-icon"></i>
+                <div class="skill-name">iOS</div>
+                <div class="skill-level">Advanced</div>
+            </div>
+            <div class="skill-card">
+                <i class="fab fa-java skill-icon"></i>
+                <div class="skill-name">Java</div>
+                <div class="skill-level">Proficient</div>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-code skill-icon"></i>
+                <div class="skill-name">Kotlin</div>
+                <div class="skill-level">Expert</div>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-palette skill-icon"></i>
+                <div class="skill-name">Dart</div>
+                <div class="skill-level">Advanced</div>
+            </div>
+            <div class="skill-card">
+                <i class="fab fa-node-js skill-icon"></i>
+                <div class="skill-name">Node.js</div>
+                <div class="skill-level">Advanced</div>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-database skill-icon"></i>
+                <div class="skill-name">MongoDB</div>
+                <div class="skill-level">Advanced</div>
+            </div>
+            <div class="skill-card">
+                <i class="fab fa-ethereum skill-icon"></i>
+                <div class="skill-name">Web3</div>
+                <div class="skill-level">Proficient</div>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-fire skill-icon"></i>
+                <div class="skill-name">Firebase</div>
+                <div class="skill-level">Expert</div>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-server skill-icon"></i>
+                <div class="skill-name">REST API</div>
+                <div class="skill-level">Expert</div>
+            </div>
+            <div class="skill-card">
+                <i class="fab fa-git-alt skill-icon"></i>
+                <div class="skill-name">Git</div>
+                <div class="skill-level">Advanced</div>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-project-diagram skill-icon"></i>
+                <div class="skill-name">MVVM</div>
+                <div class="skill-level">Expert</div>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-network-wired skill-icon"></i>
+                <div class="skill-name">Express.js</div>
+                <div class="skill-level">Advanced</div>
+            </div>
+            <div class="skill-card">
+                <i class="fas fa-signal skill-icon"></i>
+                <div class="skill-name">Offline-First</div>
+                <div class="skill-level">Expert</div>
+            </div>
+        </div>
+    </section>
 
-    <!-- ======= Footer ======= -->
-    <!-- <footer id="footer">
-      <div class="container">
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="section-header">
+            <h2 class="section-title">Experience</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">September 2022 - Present</div>
+                <div class="timeline-title">Software Engineer Mobile</div>
+                <div class="timeline-company">Inaxus • United Arab Emirates</div>
+                <div class="timeline-description">
+                    Delivered a hybrid construction project management and document management platform used by enterprise clients across UAE & GCC. Led client requirement workshops with engineering and site teams, translating complex construction workflows into scalable mobile solutions. Conducted product demos, feature walkthroughs, and user training sessions for engineers, supervisors, and stakeholders. Designed and implemented offline-first architecture, enabling uninterrupted operations in low-connectivity construction sites. Optimized document approval and reporting workflows, reducing manual processing time by 30%.
+                </div>
+                <div class="timeline-skills">
+                    <span class="skill-tag">Flutter</span>
+                    <span class="skill-tag">Dart</span>
+                    <span class="skill-tag">Android</span>
+                    <span class="skill-tag">Kotlin</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Firebase</span>
+                    <span class="skill-tag">REST APIs</span>
+                    <span class="skill-tag">Agile/SCRUM</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">February 2022 - August 2022</div>
+                <div class="timeline-title">Software Engineer Android & Flutter</div>
+                <div class="timeline-company">Future Trend LLC • Dubai, UAE</div>
+                <div class="timeline-description">
+                    Developed a blockchain-based crypto lottery application integrating smart contracts and secure transaction workflows. Built an Employee Attendance & Workforce Tracking System for FGIC (UAE Government), improving workforce visibility and monitoring accuracy. Participated in client and internal requirement meetings to define technical scope and delivery timelines. Supported application deployments, UAT testing, and post-launch issue resolution.
+                </div>
+                <div class="timeline-skills">
+                    <span class="skill-tag">Android</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Kotlin</span>
+                    <span class="skill-tag">Flutter</span>
+                    <span class="skill-tag">Blockchain</span>
+                    <span class="skill-tag">Web3</span>
+                    <span class="skill-tag">Firebase</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">August 2020 - January 2022</div>
+                <div class="timeline-title">Software Engineer</div>
+                <div class="timeline-company">Irings Technologies • Kerala</div>
+                <div class="timeline-description">
+                    Developed customized mobile applications for government and enterprise clients, including Kudumbashree and a Qatar-based HVAC company. Conducted requirement discussions, technical planning, and solution design with stakeholders. Presented application demos, gathered feedback, and iterated feature improvements. Managed end-to-end mobile application development lifecycle from architecture to store release.
+                </div>
+                <div class="timeline-skills">
+                    <span class="skill-tag">Android</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Kotlin</span>
+                    <span class="skill-tag">Flutter</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">MongoDB</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="about">
+        <div class="section-header">
+            <h2 class="section-title">Education</h2>
+        </div>
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div class="timeline-item" style="background: var(--card-bg); padding: 2.5rem; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                <div class="timeline-title" style="font-size: 1.8rem; margin-bottom: 0.5rem;">Mangalore Institute of Technology and Engineering</div>
+                <div class="timeline-company" style="color: var(--accent-primary); font-size: 1.2rem; margin-bottom: 1rem;">Bachelor of Engineering - Computer Science and Engineering</div>
+                <div class="timeline-date" style="font-size: 1rem;">2015 - 2020 • Mangalore, India</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="skills section-bg" style="padding: 4rem 5%;">
+        <div class="section-header">
+            <h2 class="section-title">Certifications</h2>
+        </div>
+        <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            <div class="skill-card" style="padding: 2.5rem;">
+                <i class="fab fa-android skill-icon"></i>
+                <div class="skill-name">Android App Development</div>
+            </div>
+            <div class="skill-card" style="padding: 2.5rem;">
+                <i class="fas fa-mobile-alt skill-icon"></i>
+                <div class="skill-name">Flutter Development</div>
+            </div>
+            <div class="skill-card" style="padding: 2.5rem;">
+                <i class="fas fa-layer-group skill-icon"></i>
+                <div class="skill-name">Full Stack Web Development</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="section-header">
+            <h2 class="section-title">Featured Projects</h2>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <i class="fas fa-building project-icon"></i>
+                    <h3 class="project-title">Inaxus 2.0</h3>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        Cross-platform enterprise application for construction, project management, and document management. Features offline snag creation, auto-sync, and real-time collaboration. Improved workflow efficiency, data integrity, and on-site accessibility for construction teams across UAE & GCC.
+                    </p>
+                    <p class="project-tech"><strong>Tech:</strong> Flutter, Dart, Android (Java), iOS (Swift)</p>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.inaxus.app" target="_blank" class="project-link">
+                            <i class="fab fa-google-play"></i> Play Store
+                        </a>
+                        <a href="https://apps.apple.com/in/app/inaxus-2-0/id6497791662" target="_blank" class="project-link">
+                            <i class="fab fa-app-store"></i> App Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <i class="fas fa-chart-line project-icon"></i>
+                    <h3 class="project-title">SP Productivity Tracker</h3>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        Real-time workforce productivity tracking system for Shapoorji Pallonji. Enabled data-driven decision-making and operational cost optimization across large-scale construction projects with comprehensive skill tracking and performance analytics.
+                    </p>
+                    <p class="project-tech"><strong>Tech:</strong> Android (Kotlin), iOS (Swift), Firebase, MVVM</p>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.shapoorji.mobileskillportal" target="_blank" class="project-link">
+                            <i class="fab fa-google-play"></i> Skill Portal
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.shapoorji.mobileskilltracking" target="_blank" class="project-link">
+                            <i class="fab fa-google-play"></i> Tracking App
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <i class="fas fa-shopping-cart project-icon"></i>
+                    <h3 class="project-title">Cart and Cook</h3>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        Online ordering app with advanced search, intuitive UI, and personalized recommendations. Enhanced user engagement and simplified local product discovery with real-time inventory management and seamless checkout experience.
+                    </p>
+                    <p class="project-tech"><strong>Tech:</strong> Android (Kotlin), iOS (Swift), .NET, SQLite</p>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.cart_and_cook" target="_blank" class="project-link">
+                            <i class="fab fa-google-play"></i> Play Store
+                        </a>
+                        <a href="https://apps.apple.com/ae/app/cart-and-cook/id1575116227" target="_blank" class="project-link">
+                            <i class="fab fa-app-store"></i> App Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <i class="fab fa-bitcoin project-icon"></i>
+                    <h3 class="project-title">Bitconia - Crypto Lottery App</h3>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        Blockchain-powered lottery application with smart contracts and secure transactions. Conceptualized and developed with focus on fairness, compliance, and intuitive user experience using decentralized architecture.
+                    </p>
+                    <p class="project-tech"><strong>Tech:</strong> Android (Java), Node.js, MVVM, Smart Contracts</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <i class="fas fa-user-check project-icon"></i>
+                    <h3 class="project-title">FGIC Attendance</h3>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        Secure, cross-platform attendance and workforce monitoring solution for UAE Government (Federal Geographic Information Center). Integrated real-time tracking and backend systems to improve transparency and efficiency in workforce management.
+                    </p>
+                    <p class="project-tech"><strong>Tech:</strong> Flutter, Dart, Firebase</p>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=app.fgic.com" target="_blank" class="project-link">
+                            <i class="fab fa-google-play"></i> Play Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <i class="fas fa-tools project-icon"></i>
+                    <h3 class="project-title">Gulf Experts Android App</h3>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        Android app for Qatar-based HVAC company enabling real-time field inspection reporting. Improved on-site productivity, data accuracy, and secure cloud-based accessibility with streamlined workflows and digital report generation.
+                    </p>
+                    <p class="project-tech"><strong>Tech:</strong> Android (Kotlin), Firebase, MVVM</p>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.jibin.gulfexperts" target="_blank" class="project-link">
+                            <i class="fab fa-google-play"></i> Play Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <i class="fas fa-users project-icon"></i>
+                    <h3 class="project-title">Kudumbashree Android App</h3>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        Android app for Kudumbasree and Ayalkootam units digitizing paperwork processes to enhance efficiency and reduce manual workload. Features an accessible, user-friendly interface for community welfare operations.
+                    </p>
+                    <p class="project-tech"><strong>Tech:</strong> Android (Java), Firebase, MVVM</p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <i class="fas fa-file-contract project-icon"></i>
+                    <h3 class="project-title">Oryx</h3>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">
+                        Android app for a Qatar-based HVAC company enabling field inspectors to digitally generate detailed reports, streamline workflows, and boost productivity with cloud-based data management.
+                    </p>
+                    <p class="project-tech"><strong>Tech:</strong> Android (Kotlin), Firebase, MVVM</p>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.irins.oryx" target="_blank" class="project-link">
+                            <i class="fab fa-google-play"></i> Play Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section-header">
+            <h2 class="section-title">Get In Touch</h2>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt contact-icon"></i>
+                    <div class="contact-details">
+                        <h3>Location</h3>
+                        <p>Dubai, United Arab Emirates</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+    <i class="fas fa-envelope contact-icon"></i>
+    <div class="contact-details">
+        <h3>Email</h3>
+        <p>
+            <a href="mailto:yaseenpv01@gmail.com">
+                yaseenpv01@gmail.com
+            </a>
+        </p>
+    </div>
+</div>
+                <div class="contact-item">
+                    <i class="fas fa-phone contact-icon"></i>
+                    <div class="contact-details">
+                        <h3>Phone</h3>
+                        <p><a href="tel:+971505829303">+971 50 582 9303</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin contact-icon"></i>
+                    <div class="contact-details">
+                        <h3>LinkedIn</h3>
+                        <p><a href="https://www.linkedin.com/in/muhammed-yaseen-p-v-529442149/" target="_blank">Connect with me</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-globe contact-icon"></i>
+                    <div class="contact-details">
+                        <h3>Website</h3>
+                        <p><a href="https://yaseenmuhammed.com" target="_blank">yaseenmuhammed.com</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" action="https://formspree.io/f/xbllqbpq" method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/yaseenpv01" target="_blank" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/muhammed-yaseen-p-v-529442149/" target="_blank" class="social-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://x.com/yaseenmuhammedp/" target="_blank" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </div>
         <div class="copyright">
-          &copy; Copyright <strong><span>iPortfolio</span></strong>
+            &copy; 2026 Muhammed Yaseen. Crafted with passion and code.
         </div>
-        <div class="credits"> -->
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
-          <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-      </div>
-    </footer> -->
-    <!-- End  Footer -->
+    </footer>
 
-    <a
-      href="#"
-      class="back-to-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Typing Effect
+        const typingText = document.querySelector('.typing-text');
+        const phrases = [
+            'Software Engineer',
+            'Mobile Solutions Architect',
+            'Flutter Specialist',
+            'Android Expert',
+            'Technical Consultant',
+            'Enterprise Developer'
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
 
-    <!-- Vendor JS Files -->
-    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/typed.js/typed.umd.js"></script>
-    <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+        function typeEffect() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
 
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
-    <script src="js/script.js"></script>
-    <script>
-      $("#submit-form").submit((e) => {
-        e.preventDefault();
-        $.ajax({
-          url: "https://formspree.io/f/xbllqbpq",
-          data: $("#submit-form").serialize(),
-          method: "post",
-          success: function (response) {
-            alert("Form submitted successfully");
-            window.location.reload();
-            //window.location.href="https://google.com"
-          },
-          error: function (err) {
-            alert("Something Error");
-          },
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+            }
+
+            const speed = isDeleting ? 50 : 100;
+            setTimeout(typeEffect, speed);
+        }
+
+        typeEffect();
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
         });
-      });
+
+        // Animated Background
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(0, 217, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const particles = [];
+        for (let i = 0; i < 100; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(0, 217, 255, ${1 - distance / 100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.progress-bar').style.width = scrollProgress + '%';
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-card, .timeline-item, .project-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
     </script>
-  </body>
+</body>
 </html>
