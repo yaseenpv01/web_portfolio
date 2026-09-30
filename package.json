@@ -1,0 +1,24 @@
+{
+  "name": "yaseen-portfolio",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node --test scripts/portfolio.test.js"
+  },
+  "dependencies": {
+    "@fontsource/space-grotesk": "^5.2.5",
+    "gsap": "^3.13.0",
+    "lenis": "^1.3.11",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.55.1",
+    "lighthouse": "^13.5.0",
+    "vite": "^7.1.7"
+  }
+}

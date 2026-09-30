@@ -1,0 +1,133 @@
+[
+  {
+    "name": "Inaxus 2.0",
+    "description": "Enterprise construction and document management across iOS and Android. Offline snag creation, auto-sync and real-time collaboration keep site teams connected. AI-assisted document search and project summaries streamline on-site decisions. Live across the UAE and GCC.",
+    "tech": "Flutter, Dart, Android / Kotlin / Java, iOS / Swift integration, Google Gemini API, Firebase",
+    "links": [
+      {
+        "url": "https://play.google.com/store/apps/details?id=com.inaxus.app",
+        "label": "Play Store"
+      },
+      {
+        "url": "https://apps.apple.com/in/app/inaxus-2-0/id6497791662",
+        "label": "App Store"
+      }
+    ],
+    "logo": {
+      "path": "assets/logos/inaxus.png",
+      "source": "https://play.google.com/store/apps/details?id=com.inaxus.app",
+      "note": "Current official Google Play icon"
+    }
+  },
+  {
+    "name": "SP Productivity Tracker",
+    "description": "Real-time workforce productivity tracking system for Shapoorji Pallonji. Enabled data-driven decision-making and operational cost optimization across large-scale construction projects with comprehensive skill tracking and performance analytics.",
+    "tech": "Android (Kotlin), iOS (Swift), Firebase, MVVM",
+    "links": [
+      {
+        "url": "https://play.google.com/store/apps/details?id=com.shapoorji.mobileskillportal",
+        "label": "Skill Portal"
+      },
+      {
+        "url": "https://play.google.com/store/apps/details?id=com.shapoorji.mobileskilltracking",
+        "label": "Tracking App"
+      }
+    ],
+    "logo": {
+      "path": "assets/logos/sp-productivity.webp",
+      "source": "https://apprecs.com/android/com.shapoorji.mobileskilltracking/sp-productivity",
+      "note": "Archived listing matched to com.shapoorji.mobileskilltracking"
+    }
+  },
+  {
+    "name": "Cart and Cook",
+    "description": "Online ordering app with advanced search, intuitive UI, and personalized recommendations. Enhanced user engagement and simplified local product discovery with real-time inventory management and seamless checkout experience.",
+    "tech": "Android (Kotlin), iOS (Swift), .NET, SQLite",
+    "links": [
+      {
+        "url": "https://play.google.com/store/apps/details?id=com.cart_and_cook",
+        "label": "Play Store"
+      },
+      {
+        "url": "https://apps.apple.com/ae/app/cart-and-cook/id1575116227",
+        "label": "App Store"
+      }
+    ],
+    "logo": {
+      "path": "assets/logos/cart-and-cook.webp",
+      "source": "https://apprecs.com/android/com.cart_and_cook/cart-and-cook",
+      "note": "Archived listing matched to com.cart_and_cook"
+    }
+  },
+  {
+    "name": "Bitconia - Crypto Lottery App",
+    "description": "Blockchain-powered lottery application with smart contracts and secure transactions. Conceptualized and developed with focus on fairness, compliance, and intuitive user experience using decentralized architecture.",
+    "tech": "Android (Java), Node.js, MVVM, Smart Contracts",
+    "links": []
+  },
+  {
+    "name": "FGIC Attendance",
+    "description": "Secure, cross-platform attendance and workforce monitoring solution for UAE Government (Federal Geographic Information Center). Integrated real-time tracking and backend systems to improve transparency and efficiency in workforce management.",
+    "tech": "Flutter, Dart, Firebase",
+    "links": [
+      {
+        "url": "https://play.google.com/store/apps/details?id=app.fgic.com",
+        "label": "Play Store"
+      }
+    ],
+    "logo": {
+      "path": "assets/logos/fgic.webp",
+      "source": "https://apprecs.com/android/app.fgic.com/fgic-attendance",
+      "note": "Archived listing matched to app.fgic.com"
+    }
+  },
+  {
+    "name": "Gulf Experts Android App",
+    "description": "Android app for Qatar-based HVAC company enabling real-time field inspection reporting. Improved on-site productivity, data accuracy, and secure cloud-based accessibility with streamlined workflows and digital report generation.",
+    "tech": "Android (Kotlin), Firebase, MVVM",
+    "links": [
+      {
+        "url": "https://play.google.com/store/apps/details?id=com.jibin.gulfexperts",
+        "label": "Play Store"
+      }
+    ],
+    "logo": {
+      "path": "assets/logos/gulf-experts.jpg",
+      "source": "https://www.myandroid.org/apps/com-jibin-gulfexperts",
+      "note": "Archived listing matched to com.jibin.gulfexperts"
+    }
+  },
+  {
+    "name": "Kudumbashree Android App",
+    "description": "Android app for Kudumbasree and Ayalkootam units digitizing paperwork processes to enhance efficiency and reduce manual workload. Features an accessible, user-friendly interface for community welfare operations.",
+    "tech": "Android (Java), Firebase, MVVM",
+    "links": [],
+    "logo": {
+      "path": "assets/logos/kudumbashree.webp",
+      "source": "https://apprecs.com/android/com.arun.kudumbasree/kudumbashree-application",
+      "note": "Archived Irings app listing matched to com.arun.kudumbasree"
+    }
+  },
+  {
+    "name": "Oryx",
+    "description": "Android app for a Qatar-based HVAC company enabling field inspectors to digitally generate detailed reports, streamline workflows, and boost productivity with cloud-based data management.",
+    "tech": "Android (Kotlin), Firebase, MVVM",
+    "links": [
+      {
+        "url": "https://play.google.com/store/apps/details?id=com.irins.oryx",
+        "label": "Play Store"
+      }
+    ],
+    "logo": {
+      "path": "assets/logos/oryx.webp",
+      "source": "https://apprecs.com/android/com.irins.oryx/oryx",
+      "note": "Archived Irings app listing matched to com.irins.oryx"
+    }
+  },
+  {
+    "name": "Local AI Document Parser",
+    "description": "A fully local OCR and RAG pipeline that turns PDFs into structured JSON. Ollama and Tesseract process documents without external API calls or data leaving the device. A FastAPI backend connects to a Flutter client for upload, parsing and review.",
+    "tech": "Python, FastAPI, Ollama, Tesseract OCR, Flutter, REST APIs",
+    "links": []
+  }
+]

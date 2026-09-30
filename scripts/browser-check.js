@@ -1,0 +1,32 @@
+import { chromium } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+import { mkdirSync,writeFileSync } from 'node:fs';
+import assert from 'node:assert/strict';
+mkdirSync('artifacts',{recursive:true});
+const browser=await chromium.launch({channel:'chrome',headless:true});
+const errors=[];
+const context=await browser.newContext({viewport:{width:1440,height:1000}});
+const page=await context.newPage();
+page.on('pageerror',e=>errors.push(e.message));
+await page.goto('http://localhost:5173');
+await page.waitForTimeout(1800);
+await page.screenshot({path:'artifacts/desktop.png'});
+assert.equal(await page.locator('.project-card').count(),9);
+assert.equal(await page.locator('.project-logo').count(),7);
+for(const logo of await page.locator('.project-logo').all()){await logo.scrollIntoViewIfNeeded();await logo.evaluate(img=>img.decode());}
+await page.locator('#home').scrollIntoViewIfNeeded();
+await page.locator('#skills').scrollIntoViewIfNeeded();await page.waitForTimeout(300);
+await page.screenshot({path:'artifacts/skills.png'});
+const accessibility=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
+writeFileSync('artifacts/accessibility.json',JSON.stringify(accessibility.violations,null,2));
+console.log('Accessibility violations:',accessibility.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})));
+await page.route('https://formspree.io/**',route=>route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'}));
+await page.locator('#name').fill('Test visitor');await page.locator('#email').fill('test@example.com');await page.locator('#message').fill('Automated test — intercepted locally.');await page.locator('button[type=submit]').click();await page.waitForTimeout(200);assert.match(await page.locator('.form-status').innerText(),/Message sent/);
+await page.unroute('https://formspree.io/**');await page.route('https://formspree.io/**',route=>route.fulfill({status:500,body:'error'}));await page.locator('#name').fill('Test');await page.locator('#email').fill('test@example.com');await page.locator('#message').fill('Local failure test');await page.locator('button[type=submit]').click();await page.waitForTimeout(200);assert.match(await page.locator('.form-status').innerText(),/could not be sent/);
+const mobileContext=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});const mobile=await mobileContext.newPage();await mobile.goto('http://localhost:5173');await mobile.waitForTimeout(1000);await mobile.screenshot({path:'artifacts/mobile.png',fullPage:true});assert.ok(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.equal(await mobile.locator('#phone-scene canvas').count(),0);await mobile.locator('.menu-toggle').click();assert.equal(await mobile.locator('.menu-toggle').getAttribute('aria-expanded'),'true');await mobile.locator('nav a[href="#projects"]').click();assert.equal(await mobile.locator('.menu-toggle').getAttribute('aria-expanded'),'false');
+const mobileAxe=await new AxeBuilder({page:mobile}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();console.log('Mobile accessibility violations:',mobileAxe.violations.map(v=>v.id));
+const reducedContext=await browser.newContext({viewport:{width:1280,height:800},reducedMotion:'reduce'});const reduced=await reducedContext.newPage();await reduced.goto('http://localhost:5173');await reduced.waitForTimeout(500);assert.equal(await reduced.locator('#phone-scene canvas').count(),0);assert.equal(await reduced.locator('.preloader').isVisible(),false);
+for(const width of [320,768,1024]){await reduced.setViewportSize({width,height:900});await reduced.waitForTimeout(100);assert.ok(await reduced.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`Overflow at ${width}px`);}
+await mobile.locator('.project-card').nth(2).scrollIntoViewIfNeeded();await mobile.locator('.project-card').nth(2).locator('.mini-phone img').evaluate(img=>img.decode());await mobile.locator('.project-card').nth(2).screenshot({path:'artifacts/mobile-project.png'});
+console.log('Runtime errors:',errors);assert.deepEqual(errors,[]);assert.equal(accessibility.violations.length,0);assert.equal(mobileAxe.violations.length,0);
+await browser.close();console.log('Desktop, mobile, reduced motion, navigation and form checks passed.');
