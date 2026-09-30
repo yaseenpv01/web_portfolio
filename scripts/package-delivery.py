@@ -1,7 +1,8 @@
 """Refresh the complete source listing and downloadable delivery archives."""
 from pathlib import Path
 import zipfile
-files = [Path(n) for n in ['index.html', 'package.json', 'vite.config.js', 'netlify.toml', '.gitignore', '.env.example', 'PORTRAIT.md']]
+files = [Path(n) for n in ['index.html', 'package.json', 'vite.config.js', 'netlify.toml', '.gitignore', '.env.example', 'PORTRAIT.md', 'SEO.md', 'vercel.json']]
+files += sorted(Path('projects').rglob('*.html'))
 files += sorted(Path('src').glob('*')) + sorted(Path('scripts').glob('*.js')) + sorted(Path('scripts').glob('*.py'))
 files += [p for p in sorted(Path('public').rglob('*')) if p.is_file() and p.suffix in ['.svg', '.xml', '.txt', '.json', '.md']]
 if Path('LOGO-SOURCES.md').exists(): files.append(Path('LOGO-SOURCES.md'))

@@ -29,4 +29,20 @@ const reducedContext=await browser.newContext({viewport:{width:1280,height:800},
 for(const width of [320,768,1024]){await reduced.setViewportSize({width,height:900});await reduced.waitForTimeout(100);assert.ok(await reduced.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`Overflow at ${width}px`);}
 await mobile.locator('.project-card').nth(2).scrollIntoViewIfNeeded();await mobile.locator('.project-card').nth(2).locator('.mini-phone img').evaluate(img=>img.decode());await mobile.locator('.project-card').nth(2).screenshot({path:'artifacts/mobile-project.png'});
 console.log('Runtime errors:',errors);assert.deepEqual(errors,[]);assert.equal(accessibility.violations.length,0);assert.equal(mobileAxe.violations.length,0);
+const staticContext=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});
+const staticPage=await staticContext.newPage();
+for(const route of ['/','/projects/inaxus/','/projects/fgic-attendance/','/projects/local-ai-document-parser/']){
+ const response=await staticPage.goto('http://localhost:5173'+route);
+ assert.equal(response.status(),200);
+ assert.equal(await staticPage.locator('h1').count(),1);
+ assert.ok(await staticPage.locator('h1').isVisible());
+ assert.ok(await staticPage.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),route);
+}
+for(const slug of ['inaxus','fgic-attendance','local-ai-document-parser']){
+ await page.goto('http://localhost:5173/projects/'+slug+'/');
+ const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();
+ assert.equal(result.violations.length,0,JSON.stringify(result.violations.map(v=>v.id)));
+}
+await page.goto('http://localhost:5173/projects/inaxus/');await page.screenshot({path:'artifacts/inaxus-page.png',fullPage:true});
+console.log('All four pages render without JavaScript; project accessibility checks passed.');
 await browser.close();console.log('Desktop, mobile, reduced motion, navigation and form checks passed.');

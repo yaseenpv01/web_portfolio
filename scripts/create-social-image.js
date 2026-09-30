@@ -1,0 +1,11 @@
+import { chromium } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+const font=readFileSync('node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-500-normal.woff2').toString('base64');
+const portrait=readFileSync('public/assets/img/yaseen-professional.webp').toString('base64');
+const browser=await chromium.launch({channel:'chrome',headless:true});
+const page=await browser.newPage({viewport:{width:1200,height:630},deviceScaleFactor:1});
+await page.setContent(`<!doctype html><html><head><style>@font-face{font-family:Space;src:url(data:font/woff2;base64,${font})}*{box-sizing:border-box}body{margin:0;background:#090b0f;color:#f2f3f6;font-family:Space,sans-serif}.card{height:630px;padding:64px 70px;position:relative;background:radial-gradient(ellipse at 85% 60%,#182b52,transparent 65%)}.brand{font-size:32px;letter-spacing:-3px}.brand span{color:#8baaff}.tag{font-size:13px;letter-spacing:3px;color:#a7b8d8;margin-top:56px}h1{font-size:67px;line-height:1.05;letter-spacing:-3px;font-weight:500;margin:23px 0}h1 span{display:block;color:#8baaff}p{font-size:23px;color:#bbc6d9;margin:25px 0}.url{position:absolute;bottom:53px;font-size:14px;letter-spacing:1.5px;color:#9aaac6}.portrait{position:absolute;right:70px;top:105px;width:335px;height:410px;object-fit:cover;border:1px solid #53688c;border-radius:28px;box-shadow:0 30px 70px #0005}.rule{position:absolute;left:70px;right:70px;bottom:88px;height:1px;background:#35415a}</style></head><body><div class="card"><div class="brand">MY<span>.</span></div><div class="tag">SENIOR MOBILE ENGINEER · DUBAI</div><h1>Muhammed<span>Yaseen.</span></h1><p>Flutter. Android. Real-world impact.</p><img class="portrait" src="data:image/webp;base64,${portrait}"/><div class="rule"></div><div class="url">YASEENMUHAMMED.COM</div></div></body></html>`);
+await page.evaluate(()=>document.fonts.ready);
+await page.locator('img').evaluate(img=>img.decode());
+await page.screenshot({path:'public/og-image.jpg',type:'jpeg',quality:90});
+await browser.close();

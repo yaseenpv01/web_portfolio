@@ -44,6 +44,9 @@ scripts/
   browser-check.js              Desktop/mobile, axe, motion and intercepted form checks
 package.json / package-lock.json
 vite.config.js
+vercel.json                    Vercel redirects and indexing headers
+projects/                      Three static project overviews
+SEO.md                         Search Console setup and SEO maintenance
 netlify.toml
 .env.example
 .gitignore
@@ -150,3 +153,7 @@ The supplied September 2026 CV replaces the download byte-for-byte. Portfolio co
 ## App logos
 
 Seven package-matched app icons are included in `public/assets/logos/`, with provenance in `LOGO-SOURCES.md`. The current official INAXUS icon and archived SP Productivity, Cart and Cook, FGIC, Gulf Experts, Kudumbashree, and Oryx icons retain their original brand colours. Bitconia and the personal AI parser remain text-only because no suitable verified mark was available. Run `python3 scripts/package-delivery.py` after a build to refresh the source listing and ZIP deliverables.
+
+## SEO pages
+
+The Vite build now outputs the homepage and three standalone project overviews under `/projects/`. Update their source HTML directly. `npm run test:seo` checks built canonicals, schema, sitemap coverage and internal assets/links. `vercel.json` handles legacy URLs, the canonical host, trailing slashes and PDF indexing on Vercel. Other hosts need equivalent redirect/header configuration. See `SEO.md` for account-level Search Console setup and ranking expectations.
